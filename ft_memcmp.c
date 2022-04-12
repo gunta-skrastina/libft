@@ -14,8 +14,7 @@
 
 int	ft_memcmp(const void *str1, const void *str2, size_t count)
 {
-	while (count && *(unsigned char *)str1
-		&& (*(unsigned char *)str1 == *(unsigned char *)str2))
+	while (count && (*(unsigned char *)str1 == *(unsigned char *)str2))
 	{
 		count--;
 		str1++;
