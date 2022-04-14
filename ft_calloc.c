@@ -11,14 +11,23 @@
 /* ************************************************************************** */
 
 #include"libft.h"
+#include <stdio.h>
 
 void	*ft_calloc(size_t num, size_t size)
 {
-	void	*ptr;
+	void				*ptr;
+	unsigned long long	i;
 
-	ptr = malloc(num * size);
+	i = 0;
+	if ((num * size) < num || (num * size) < size)
+		return (NULL);
+	ptr = (char *)malloc(num * size);
 	if (!ptr)
 		return (NULL);
-	ft_bzero(ptr, num * size);
+	while (i < (num * size))
+	{
+		((char *)ptr)[i] = 0;
+		i++;
+	}
 	return (ptr);
 }
