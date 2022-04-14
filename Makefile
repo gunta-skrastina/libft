@@ -3,6 +3,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
+
 CFILES = ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -37,40 +38,9 @@ CFILES = ft_isalpha.c \
 	ft_putstr_fd.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c
-OBJECTS = ft_isalpha.o \
-	ft_isdigit.o \
-	ft_isalnum.o \
-	ft_isascii.o \
-	ft_isprint.o \
-	ft_strlen.o \
-	ft_memset.o \
-	ft_bzero.o \
-	ft_memcpy.o \
-	ft_memmove.o \
-	ft_strlcpy.o \
-	ft_strlcat.o \
-	ft_toupper.o \
-	ft_tolower.o \
-	ft_split.o \
-	ft_strchr.o \
-	ft_strrchr.o \
-	ft_strncmp.o \
-	ft_memchr.o \
-	ft_memcmp.o \
-	ft_strnstr.o \
-	ft_atoi.o \
-	ft_calloc.o \
-	ft_strdup.o \
-	ft_substr.o \
-	ft_strjoin.o \
-	ft_strtrim.o \
-	ft_itoa.o \
-	ft_strmapi.o \
-	ft_striteri.o \
-	ft_putchar_fd.o \
-	ft_putstr_fd.o \
-	ft_putendl_fd.o \
-	ft_putnbr_fd.o
+
+OBJECTS = $(CFILES:.c=.o)
+
 BONUSFILES = ft_lstnew.c \
 	ft_lstadd_front.c \
 	ft_lstsize.c \
@@ -80,32 +50,26 @@ BONUSFILES = ft_lstnew.c \
 	ft_lstclear.c \
 	ft_lstiter.c \
 	ft_lstmap.c
-BONUSOBJECTS = ft_lstnew.o \
-	ft_lstadd_front.o \
-	ft_lstsize.o \
-	ft_lstlast.o \
-	ft_lstadd_back.o \
-	ft_lstdelone.o \
-	ft_lstclear.o \
-	ft_lstiter.o \
-	ft_lstmap.o 
+
+BONUSOBJECTS = $(BONUSFILES:.c=.o)
 
 all: $(NAME)
+
 $(NAME): $(OBJECTS)
-	ar cr $(NAME) $(OBJECTS)
-$(OBJECTS): $(CFILES)
-	$(CC) $(CFLAGS) $(CFILES) -c
-exec:
-	./libft.a
+	ar rc $(NAME) $(OBJECTS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+
+bonus: $(BONUSOBJECTS)
+	@make OBJECTS="$(BONUSOBJECTS)" all
+
 clean:
-	rm -rf $(OBJECTS)
-fclean:
-	make clean
-	rm -rf $(NAME)
-re:
-	make clean
-	make all
-bonus: $(NAME) $(BONUSOBJECTS)
-$(BONUSOBJECTS): $(BONUSFILES)
-	$(CC) $(CFLAGS) $(BONUSFILES) -c
-	ar r $(NAME) $(BONUSOBJECTS)
+	rm -f $(OBJECTS) $(BONUSOBJECTS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re bonus
