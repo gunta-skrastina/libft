@@ -15,12 +15,11 @@
 
 void	*ft_calloc(size_t num, size_t size)
 {
-	void				*ptr;
-	unsigned long long	i;
+	void	*ptr;
+	size_t	i;
 
 	i = 0;
-	if ((num * size) < num || (num * size) < size)
-		return (NULL);
+
 	ptr = (char *)malloc(num * size);
 	if (!ptr)
 		return (NULL);
