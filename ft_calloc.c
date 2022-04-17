@@ -19,7 +19,6 @@ void	*ft_calloc(size_t num, size_t size)
 	size_t	i;
 
 	i = 0;
-
 	ptr = (char *)malloc(num * size);
 	if (!ptr)
 		return (NULL);
